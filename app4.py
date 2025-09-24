@@ -4,6 +4,7 @@ import plotly.express as px
 import numpy as np
 import requests
 import base64
+import os
 from datetime import datetime
 
 
@@ -197,8 +198,15 @@ def load_and_prepare_neo_data():
     Laad en bereid NEO dataset voor - gecombineerde functie.
     Zie voor documentatie, https://api.nasa.gov/.
     """
+    # Bouw een pad relatief aan dit script
+    base_dir = os.path.dirname(__file__)
+    csv_path = os.path.join(base_dir, "nearest-earth-objects(1910-2024).csv")
+
     try:
-        df = pd.read_csv("nearest-earth-objects(1910-2024).csv")
+        df = pd.read_csv(csv_path)
+    except Exception as e:
+        st.error(f"Kon CSV niet laden: {e}")
+        return pd.DataFrame()
     except Exception as e:
         st.error(f"Kon CSV niet laden: {e}")
         return pd.DataFrame()
@@ -665,4 +673,5 @@ with tab2:
         - Gebruik de logaritmische schaal voor grote waarden
         - Hover over punten voor meer details
         - Download gefilterde data voor eigen analyses
+
         """)
