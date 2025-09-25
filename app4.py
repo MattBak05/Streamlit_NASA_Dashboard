@@ -263,11 +263,11 @@ def load_and_prepare_neo_data():
 
 
 # -------------------------- Maak tabs --------------------------
-tab1, tab2 = st.tabs(["📷 Dagelijkse Beelden", "📊 Analyse"])
+tab1, tab2 = st.tabs(["📷 Dagelijkse Beelden", "📊 NEO Analyse"])
 
 # ================= Tab 1 =================
 with tab1:
-    st.header("NASA Astronomy Picture of the Day, Mars Rover Photos & NEOs")
+    st.header("Dagelijkse Astronomie")
 
     # Datum selector
     selected_date = st.date_input(
@@ -307,7 +307,7 @@ with tab1:
 
     # ---------------- Mars Rover Foto ----------------
     with col2:
-        st.subheader("Mars Rover Photo")
+        st.subheader("Mars Rover Foto")
         st.caption(apod_data.get("date", ""))
         with st.spinner("Laden van Mars Rover foto..."):
             rover_photo = get_single_mars_rover_photo(selected_date.strftime("%Y-%m-%d"))
@@ -335,7 +335,7 @@ with tab1:
 
     # ---------------- Neo ----------------
     with col4:
-        st.subheader(f"Near-Earth Objects")
+        st.subheader("Aardscheerders (NEO)")
         st.caption(apod_data.get("date", ""))
         with st.spinner("Laden van NEO data..."):
             df_neos = load_neo_for_date(selected_date.strftime("%Y-%m-%d"))
@@ -681,5 +681,6 @@ with tab2:
         - Download gefilterde data voor eigen analyses
 
         """)
+
 
 
