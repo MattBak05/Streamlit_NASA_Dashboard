@@ -297,10 +297,8 @@ with col1:
     st.caption(apod_data.get("date", ""))
 
     if apod_data.get("media_type") == "image":
-        img_url = apod_data["url"]
+        st.image(apod_data["url"], use_container_width=True)
         st.markdown(
-            f'<a href="{img_url}" target="_blank">'
-            f'<img src="{img_url}" style="max-width:100%; height:auto; border-radius:10px;" />'
             f'</a>',
             unsafe_allow_html=True
         )
@@ -320,10 +318,8 @@ with col2:
     with st.spinner("Laden van Mars Rover foto..."):
         rover_photo = get_single_mars_rover_photo(selected_date.strftime("%Y-%m-%d"))
         if rover_photo:
-            img_url = rover_photo["url"]
+            st.image(rover_photo["url"], use_container_width=True)
             st.markdown(
-                f'<a href="{img_url}" target="_blank">'
-                f'<img src="{img_url}" style="max-width:100%; height:auto; border-radius:10px;" />'
                 f'</a>',
                 unsafe_allow_html=True
             )
@@ -692,6 +688,7 @@ with tab2:
         - Download gefilterde data voor eigen analyses
 
         """)
+
 
 
 
