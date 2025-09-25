@@ -292,33 +292,44 @@ with tab1:
 
     col1, col2 = st.columns([5, 5])
 
-    with col1:
-        st.subheader(apod_data.get("title", "Geen titel gevonden"))
-        st.caption(apod_data.get("date", ""))
-        if apod_data.get("media_type") == "image":
-            st.image(apod_data["url"], use_container_width=True)
-        elif apod_data.get("media_type") == "video":
-            st.video(apod_data["url"])
-        else:
-            st.warning(f"Onbekend mediatype: {apod_data.get('media_type')}")
-        if apod_data.get("explanation"):
-            with st.expander("Toon uitleg"):
-                st.markdown(f"<div style='max-width: 800px;'>{apod_data['explanation']}</div>", unsafe_allow_html=True)
+with col1:
+    st.subheader(apod_data.get("title", "Geen titel gevonden"))
+    st.caption(apod_data.get("date", ""))
+
+    if apod_data.get("media_type") == "image":
+        img_url = apod_data["url"]
+        st.markdown(
+            f'<a href="{img_url}" target="_blank">'
+            f'<img src="{img_url}" style="max-width:100%; height:auto; border-radius:10px;" />'
+            f'</a>',
+            unsafe_allow_html=True
+        )
+    elif apod_data.get("media_type") == "video":
+        st.video(apod_data["url"])
+    else:
+        st.warning(f"Onbekend mediatype: {apod_data.get('media_type')}")
+
+    if apod_data.get("explanation"):
+        with st.expander("Toon uitleg"):
+            st.markdown(f"<div style='max-width: 800px;'>{apod_data['explanation']}</div>", unsafe_allow_html=True)
 
     # ---------------- Mars Rover Foto ----------------
-    with col2:
-        st.subheader("Mars Rover Foto")
-        st.caption(apod_data.get("date", ""))
-        with st.spinner("Laden van Mars Rover foto..."):
-            rover_photo = get_single_mars_rover_photo(selected_date.strftime("%Y-%m-%d"))
-            if rover_photo:
-                st.image(
-                    rover_photo["url"],
-                    use_container_width=True,
-                    caption=f"{rover_photo['rover']} Rover ({rover_photo['camera']})"
-                )
-            else:
-                st.info("Geen roverfoto beschikbaar voor deze datum.")
+with col2:
+    st.subheader("Mars Rover Photo")
+    st.caption(apod_data.get("date", ""))
+    with st.spinner("Laden van Mars Rover foto..."):
+        rover_photo = get_single_mars_rover_photo(selected_date.strftime("%Y-%m-%d"))
+        if rover_photo:
+            img_url = rover_photo["url"]
+            st.markdown(
+                f'<a href="{img_url}" target="_blank">'
+                f'<img src="{img_url}" style="max-width:100%; height:auto; border-radius:10px;" />'
+                f'</a>',
+                unsafe_allow_html=True
+            )
+            st.caption(f"{rover_photo['rover']} Rover ({rover_photo['camera']})")
+        else:
+            st.info("Geen roverfoto beschikbaar voor deze datum.")
 
     # ---------------- Maanfase ----------------
     col3, col4 = st.columns([4, 6])
@@ -681,6 +692,7 @@ with tab2:
         - Download gefilterde data voor eigen analyses
 
         """)
+
 
 
 
