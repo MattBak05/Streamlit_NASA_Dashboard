@@ -256,7 +256,7 @@ def load_and_prepare_neo_data():
             df["name"] = df.index.astype(str)
 
     # Bereken risico score: diameter gedeeld door mis afstand
-    df["risk_score"] = df["Gemiddelde Diameter (km)"] / (df["miss_distance"].replace(0, np.nan))
+    df["risk_score"] = df["Gemiddelde Diameter (km)"] / (df["miss_distance"].replace(0, np.nan))*1e6
     df["risk_score"] = df["risk_score"].replace([np.inf, -np.inf], np.nan)
 
     return df
@@ -692,6 +692,7 @@ with tab2:
         - Download gefilterde data voor eigen analyses
 
         """)
+
 
 
 
