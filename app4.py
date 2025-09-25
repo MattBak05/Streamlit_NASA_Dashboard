@@ -558,6 +558,10 @@ with tab2:
                 },
                 template="plotly_white"
             )
+
+            if log_scale and "risk_score" in subset_box.columns:
+                fig_box.update_yaxes(type="log")
+            
             fig_box.update_layout(height=400, showlegend=False)
             st.plotly_chart(fig_box, use_container_width=True)
         else:
@@ -677,4 +681,5 @@ with tab2:
         - Download gefilterde data voor eigen analyses
 
         """)
+
 
