@@ -592,6 +592,8 @@ with tab2:
             corr,
             text_auto=True,
             color_continuous_scale="RdBu_r",
+            zmin=-1,
+            zmax=1,
             title="Correlatie tussen variabelen",
             template="plotly_white",
             aspect="auto"
@@ -675,3 +677,4 @@ with tab2:
         - Download gefilterde data voor eigen analyses
 
         """)
+
